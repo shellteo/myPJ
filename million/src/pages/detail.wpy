@@ -1,0 +1,58 @@
+<style lang="less">
+  .detailPage {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    .headerImg {
+      width:100%;
+      height: 450rpx;
+      background-color: black;
+    }
+    .textView {
+      font-size: 32rpx;
+      color: black;
+      margin:50rpx 20rpx 20rpx 20rpx;
+    }
+  }
+</style>
+<template>
+  <view class="detailPage">
+    <image class="headerImg" mode="aspectFit" src="{{src}}"></image>
+    <view class="textView">
+      <text>
+        安装开发工具
+        前往 开发者工具下载页面 ，根据自己的操作系统下载对应的安装包进行安装，有关开发者工具更详细的介绍可以查看 《开发者工具介绍》 。
+
+        打开小程序开发者工具，用微信扫码登录开发者工具，准备开发你的第一个小程序吧！
+
+        你的第一个小程序
+        新建项目选择小程序项目，选择代码存放的硬盘路径，填入刚刚申请到的小程序的 AppID。
+      </text>
+    </view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Detail extends wepy.page {
+    config = {
+      navigationBarTitleText: 'detail'
+    }
+    components = {
+    }
+    data = {
+      src: './blockChain.jpg'
+    }
+    computed = {
+    }
+    methods = {
+    }
+
+    events = {
+    }
+
+    onLoad() {
+    }
+  }
+</script>

@@ -1,0 +1,100 @@
+<style lang="less">
+  page{
+    height: 100%;
+  }
+  .homePage {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    height: 100%;
+    .gridContainer {
+      width: 100%;
+      border-bottom: 1rpx #e6e6e6 solid;    //09BB07
+    }
+    .grid {
+      width:10%;
+      height: 75rpx;
+      box-sizing: border-box;
+      border-top: 1rpx #e6e6e6 solid;
+      border-left: 1rpx #e6e6e6 solid;
+    }
+    .grid:nth-of-type(10n+1) {
+      border-left: none;
+    }
+    .footer {
+      font-size: 28rpx;
+      text-align: center;
+      color: #515151;
+      width: 100%;
+      padding: 20rpx 0;
+    }
+  }
+</style>
+<template>
+  <view class="homePage">
+    <scroll-view bindscrolltolower="lower" scroll-y="{{scrollY}}" scroll-with-animation="{{animation}}" style="height: 100%">
+      <view class="gridContainer">
+        <block wx:for="{{gridLen}}" wx:key="{{index}}">
+          <image class="grid" mode="{{scaleToFill}}" src="{{src}}" catchtap="toDetail"></image>
+        </block>
+      </view>
+      <view class="footer">加载中...</view>
+    </scroll-view>
+  </view>
+</template>
+
+<script>
+  import wepy from 'wepy'
+
+  export default class Index extends wepy.page {
+    config = {
+      navigationBarTitleText: 'million grid'
+    }
+    components = {
+    }
+    data = {
+      gridLen: [],
+      src: './lock-green.png',
+      scrollY: true,
+      animation: true
+    }
+    computed = {
+    }
+    methods = {
+      toDetail() {
+        wx.navigateTo({
+          url: 'detail'
+        })
+        let timestamp = Date.parse(new Date())
+        let randomString = this.genRandomString(30)
+        console.log(randomString);
+        wx.requestPayment({
+          'timeStamp': timestamp.toString(),
+          'nonceStr': randomString,
+          'package': '',
+          'signType': 'MD5',
+          'paySign': '',
+          'success':function(res){},
+          'fail':function(res){},
+          'complete':function(res){}
+        })
+      },
+      lower() {
+        console.log('123');
+      }
+    }
+
+    events = {
+    }
+
+    onLoad() {
+      this.gridLen.length = 200
+    }
+    genRandomString(len) {
+      let rdmString = ''
+      // toSting接受的参数表示进制，默认为10进制。36进制为0-9 a-z
+      for (; rdmString.length < len; rdmString += Math.random().toString(36).substr(2));
+      return rdmString.substr(0, len)
+    }
+  }
+</script>
